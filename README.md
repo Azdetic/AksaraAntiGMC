@@ -6,79 +6,79 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License"/>
 </p>
 
-**AksaraAntiGMC** adalah plugin Minecraft Paper yang dirancang untuk mencegah penyalahgunaan Creative Mode (GMC) di server. Plugin ini menyediakan sistem konfirmasi, pengelolaan inventory terpisah, dan berbagai pembatasan untuk memastikan keamanan ekonomi server.
+A Minecraft Paper plugin to prevent Creative Mode (GMC) abuse on your server. This plugin provides confirmation system, separate inventory management, and many restrictions to protect your server economy.
 
 ---
 
-## ✨ Fitur Utama
+## ✨ Features
 
-- 🔒 **Sistem Konfirmasi Creative Mode** - Admin harus mengirim permintaan, pemain harus konfirmasi
-- 📦 **Inventory Terpisah** - Inventory Survival dan Creative disimpan terpisah
-- 🚫 **Pembatasan Container** - Block akses ke chest, shulker, barrel, dll saat Creative
-- 🎯 **Creative Lore Tagging** - Semua item yang diambil saat Creative ditandai dengan lore
-- 🔄 **Auto-Survival on Rejoin** - Pemain yang disconnect saat Creative otomatis jadi Survival
-- 🥚 **Block Spawn Eggs** - Pemain Creative tidak bisa menggunakan spawn eggs
-- 📤 **Block Item Drop/Pickup** - Mencegah transfer item dengan drop/pickup
+- 🔒 **Confirmation System** - Admin sends request, player must confirm
+- 📦 **Separate Inventory** - Survival and Creative inventory stored separately
+- 🚫 **Block Containers** - Block access to chest, shulker, barrel, etc in Creative
+- 🎯 **Creative Item Tagging** - All items obtained in Creative get a lore tag
+- 🔄 **Auto-Survival on Rejoin** - Players who disconnect in Creative become Survival
+- 🥚 **Block Spawn Eggs** - Creative players cannot use spawn eggs
+- 📤 **Block Drop/Pickup** - Prevent item transfer via drop/pickup
 
 ---
 
-## 📥 Instalasi
+## 📥 Installation
 
-1. Download file `AksaraAntiGMC-1.0.0.jar` dari [Releases](../../releases)
-2. Letakkan file `.jar` di folder `plugins/` server Anda
+1. Download `AksaraAntiGMC-1.0.0.jar` from [Releases](../../releases)
+2. Put the `.jar` file in your server `plugins/` folder
 3. Restart server
-4. Edit `config.yml` sesuai kebutuhan
-5. Jalankan `/aksaraantigmc reload` untuk reload config
+4. Edit `config.yml` as needed
+5. Run `/aksaraantigmc reload` to reload config
 
 ---
 
 ## 📋 Commands
 
-### `/gmc` - Main Creative Mode Command
+### `/gmc` - Main Command
 
-| Command | Deskripsi | Permission |
-|---------|-----------|------------|
-| `/gmc <player>` | Kirim permintaan GMC ke pemain | `aksaraantigmc.gmc` |
-| `/gmc confirm` | Konfirmasi permintaan GMC | Semua pemain* |
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/gmc <player>` | Send GMC request to player | `aksaraantigmc.gmc` |
+| `/gmc confirm` | Confirm GMC request | Everyone* |
 
-*Pemain harus memiliki pending confirmation
+*Player must have pending confirmation
 
 ### `/aksaraantigmc` - Admin Command
 
-| Command | Deskripsi | Permission |
-|---------|-----------|------------|
-| `/aksaraantigmc reload` | Reload konfigurasi | `aksaraantigmc.admin` |
-| `/aksaraantigmc restoreinventory <player> <gamemode>` | Restore inventory pemain | `aksaraantigmc.admin` |
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/aksaraantigmc reload` | Reload config | `aksaraantigmc.admin` |
+| `/aksaraantigmc restoreinventory <player> <gamemode>` | Restore player inventory | `aksaraantigmc.admin` |
 
 ---
 
 ## 🔑 Permissions
 
-| Permission | Deskripsi | Default |
-|------------|-----------|---------|
-| `aksaraantigmc.gmc` | Izin menggunakan `/gmc <player>` | OP |
-| `aksaraantigmc.admin` | Izin command admin | OP |
-| `aksaraantigmc.bypass` | Bypass semua pembatasan GMC | OP |
-| `aksaraantigmc.confirm` | Izin menggunakan `/gmc confirm` | Semua |
+| Permission | Description | Default |
+|------------|-------------|---------|
+| `aksaraantigmc.gmc` | Can use `/gmc <player>` | OP |
+| `aksaraantigmc.admin` | Can use admin commands | OP |
+| `aksaraantigmc.bypass` | Bypass all GMC restrictions | OP |
+| `aksaraantigmc.confirm` | Can use `/gmc confirm` | Everyone |
 
 ---
 
-## 📖 Cara Penggunaan
+## 📖 How to Use
 
-### Untuk Admin: Memberikan Creative Mode ke Pemain
+### For Admin: Give Creative Mode to Player
 
 ```
-1. Admin menjalankan: /gmc NamaPemain
-2. Pemain menerima peringatan 5x + title screen
-3. Pemain mengetik: /gmc confirm (dalam 30 detik)
-4. Pemain berubah ke Creative Mode dengan inventory terpisah
+1. Admin runs: /gmc PlayerName
+2. Player gets 5 warning messages + title screen
+3. Player types: /gmc confirm (within 30 seconds)
+4. Player changes to Creative Mode with separate inventory
 ```
 
-### Untuk Pemain: Keluar dari Creative Mode
+### For Player: Exit Creative Mode
 
-Pemain **tidak bisa** keluar sendiri. Admin/Console harus menjalankan:
+Players **cannot** exit by themselves. Admin/Console must run:
 ```
-/gamemode survival NamaPemain
+/gamemode survival PlayerName
 ```
 
 ### Flow Diagram
@@ -86,34 +86,34 @@ Pemain **tidak bisa** keluar sendiri. Admin/Console harus menjalankan:
 ```
 ┌─────────────┐         ┌─────────────┐         ┌─────────────┐
 │    Admin    │────────>│   Plugin    │────────>│   Player    │
-│ /gmc Player │         │   Request   │         │  Receives   │
-└─────────────┘         │   Created   │         │   Warning   │
+│ /gmc Player │         │   Request   │         │  Gets       │
+└─────────────┘         │   Created   │         │  Warning    │
                         └─────────────┘         └──────┬──────┘
                                                        │
                                                        ▼
                         ┌─────────────┐         ┌─────────────┐
-                        │   Gamemode  │<────────│   Player    │
-                        │   Changed   │         │ /gmc confirm│
+                        │  Gamemode   │<────────│   Player    │
+                        │  Changed    │         │ /gmc confirm│
                         └─────────────┘         └─────────────┘
 ```
 
 ---
 
-## ⚙️ Konfigurasi
+## ⚙️ Configuration
 
 ### config.yml
 
 ```yaml
-# Enable debug mode untuk logging detail
+# Enable debug mode for detailed logging
 debug: false
 
-# Commands yang di-block saat GMC
+# Commands blocked in Creative Mode
 blocked-commands:
   - /trade
   - /ah
   - /auction
 
-# Pembatasan saat Creative Mode
+# Restrictions in Creative Mode
 restrictions:
   block-chest-access: true      # Block chest
   block-ender-chest: true       # Block ender chest
@@ -130,10 +130,10 @@ restrictions:
   block-pickup-items: true      # Block pickup items
   block-spawn-eggs: true        # Block spawn eggs
 
-# Sistem konfirmasi GMC
+# GMC confirmation system
 gmc-confirmation:
-  enabled: true     # Enable/disable sistem konfirmasi
-  timeout: 30       # Timeout dalam detik
+  enabled: true     # Enable/disable confirmation
+  timeout: 30       # Timeout in seconds
 ```
 
 ### messages.yml
@@ -158,67 +158,67 @@ items:
 
 ---
 
-## 🛡️ Fitur Keamanan
+## 🛡️ Security Features
 
-### 1. Creative Lore Tagging
-Semua item yang diambil saat Creative Mode akan memiliki lore:
+### 1. Creative Item Tagging
+All items obtained in Creative Mode will have this lore:
 ```
 [AksaraAntiGMC] Creative Items By <PlayerName>
 ```
 
-### 2. Inventory Terpisah
-- Survival inventory disimpan saat masuk Creative
-- Creative inventory disimpan saat keluar Creative
-- Data tersimpan di SQLite database
+### 2. Separate Inventory
+- Survival inventory saved when entering Creative
+- Creative inventory saved when leaving Creative
+- Data stored in SQLite database
 
 ### 3. Auto-Survival on Rejoin
-Jika pemain disconnect saat Creative Mode:
-- Saat rejoin, otomatis diubah ke Survival
-- Inventory Survival di-load kembali
+If player disconnects in Creative Mode:
+- On rejoin, automatically changed to Survival
+- Survival inventory is loaded back
 
 ### 4. External Command Protection
-Jika pemain/plugin lain mencoba `/gamemode creative`:
-- Event di-cancel
-- Pemain harus konfirmasi via `/gmc confirm`
+If player/plugin tries `/gamemode creative`:
+- Event is cancelled
+- Player must confirm via `/gmc confirm`
 
 ---
 
 ## 🗃️ Database
 
-Plugin menggunakan **SQLite** untuk menyimpan:
-- Inventory Survival setiap pemain
-- Inventory Creative setiap pemain
+Plugin uses **SQLite** to store:
+- Survival inventory for each player
+- Creative inventory for each player
 
-Lokasi: `plugins/AksaraAntiGMC/inventories.db`
+Location: `plugins/AksaraAntiGMC/inventories.db`
 
 ---
 
 ## 🔧 Troubleshooting
 
-### Q: Pemain tidak bisa `/gmc confirm`?
-**A:** Pastikan:
-1. Ada pending confirmation (admin sudah run `/gmc <player>`)
-2. Belum timeout (default 30 detik)
-3. Server sudah restart setelah update plugin
+### Q: Player cannot `/gmc confirm`?
+**A:** Check:
+1. There is pending confirmation (admin already ran `/gmc <player>`)
+2. Not timeout yet (default 30 seconds)
+3. Server restarted after plugin update
 
-### Q: Item tidak dapat lore?
-**A:** Lore ditambahkan saat:
-- Mengambil item dari Creative inventory
+### Q: Items don't get lore?
+**A:** Lore is added when:
+- Taking item from Creative inventory
 - Middle-click block
-- Click item di inventory saat Creative
+- Click item in inventory while in Creative
 
-### Q: Pemain masih bisa buka chest?
-**A:** Periksa:
-1. `block-chest-access: true` di config
-2. Pemain tidak punya permission `aksaraantigmc.bypass`
-3. Pemain tidak OP
+### Q: Player can still open chest?
+**A:** Check:
+1. `block-chest-access: true` in config
+2. Player doesn't have `aksaraantigmc.bypass` permission
+3. Player is not OP
 
 ---
 
-## 📊 Performa
+## 📊 Performance
 
-| Aspek | Status |
-|-------|--------|
+| Aspect | Status |
+|--------|--------|
 | TPS Impact | 🟢 Minimal |
 | Memory Usage | 🟢 Low |
 | Database | 🟢 SQLite (Lightweight) |
@@ -230,10 +230,10 @@ Lokasi: `plugins/AksaraAntiGMC/inventories.db`
 
 ### v1.0.0
 - Initial release
-- Sistem konfirmasi GMC
-- Inventory terpisah Survival/Creative
-- Pembatasan container & commands
-- Creative lore tagging
+- GMC confirmation system
+- Separate Survival/Creative inventory
+- Container & command restrictions
+- Creative item lore tagging
 - Auto-GMS on rejoin
 - Block spawn eggs
 - Block item drop/pickup
@@ -242,13 +242,13 @@ Lokasi: `plugins/AksaraAntiGMC/inventories.db`
 
 ## 🤝 Contributing
 
-Pull requests are welcome! Untuk perubahan besar, buka issue terlebih dahulu.
+Pull requests are welcome! For major changes, please open an issue first.
 
 ---
 
 ## 📜 License
 
-[MIT License](LICENSE)
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
