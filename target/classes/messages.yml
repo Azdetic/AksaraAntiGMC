@@ -1,0 +1,21 @@
+prefix: "&8[&bAksaraAntiGMC&8] "
+no-permission: "&cYou do not have permission to use this command."
+
+gmc:
+  warning-message: "&cKamu ingin di gmc oleh admin. Taruh barang mu semua di chest agar tidak hilang!"
+  title: "&b&lATTENTION"
+  subtitle: "&eChanging gamemode to Creative..."
+  switched: "&aGamemode switched to Creative. Your inventory has been swapped."
+  confirmation-required: "&eYou have &b%seconds% seconds &eto type &a/gmc confirm &eto accept Creative mode!"
+  confirmation-sent: "&aConfirmation request sent to &e%player%&a. They have &b%seconds% seconds &ato confirm."
+  confirmation-expired: "&cYour GMC confirmation request has expired."
+  no-pending-confirmation: "&cYou don't have any pending GMC confirmation."
+  unauthorized: "&cYou must use /gmc command to enter Creative mode!"
+  
+admin:
+  restore-success: "&aInventory for &e%player% &asuccessfully restored from &e%date%&a."
+  restore-fail: "&cFailed to restore inventory. Data not found."
+  reload: "&aConfiguration reloaded."
+
+items:
+  lore-format: "&7Creative Items By &b%player%"

@@ -1,0 +1,36 @@
+# Enable debug mode for detailed logging
+debug: false
+
+# Commands that are blocked while in GMC
+blocked-commands:
+  - "/trade"
+  - "/pay"
+  - "/auction"
+  - "/ah"
+  - "/sell"
+  
+
+restrictions:
+  block-chest-access: true
+  block-ender-chest: true
+  block-shulker: true
+  block-barrel: true
+  block-dispenser: true  # Block dispenser access
+  block-dropper: true    # Block dropper access
+  block-hopper: true     # Block hopper access
+  block-furnace: true    # Block furnace/blast furnace/smoker access
+  block-item-frame: true
+  block-flower-pot: true
+  block-bundle: true
+  block-item-drop: true  # Block dropping items in Creative mode
+  block-pickup-items: true  # Block picking up dropped items in Creative mode
+  block-spawn-eggs: true  # Block using spawn eggs in Creative mode
+
+# GMC Confirmation system
+gmc-confirmation:
+  enabled: true
+  timeout-seconds: 30  # How long players have to confirm (in seconds)
+
+# Database settings
+database:
+  filename: "inventory_data.db"

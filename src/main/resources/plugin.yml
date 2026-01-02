@@ -1,0 +1,30 @@
+name: AksaraAntiGMC
+version: '${project.version}'
+main: com.aksaraproject.antigmc.AksaraAntiGMC
+api-version: '1.20'
+description: A plugin to prevent GMC abuse.
+authors: [Aksara]
+website: www.aksaraproject.com
+
+commands:
+  gmc:
+    description: Switch gamemode to creative safely.
+    usage: /gmc [player|confirm]
+  aksaraantigmc:
+    description: Main admin command for AksaraAntiGMC.
+    usage: /aksaraantigmc <restoreinventory|reload>
+    permission: aksaraantigmc.admin
+
+permissions:
+  aksaraantigmc.gmc:
+    description: Allows using the custom GMC command.
+    default: op
+  aksaraantigmc.confirm:
+    description: Allows confirming GMC requests.
+    default: true
+  aksaraantigmc.admin:
+    description: Allows using admin commands.
+    default: op
+  aksaraantigmc.bypass:
+    description: Bypass all GMC restrictions.
+    default: op
