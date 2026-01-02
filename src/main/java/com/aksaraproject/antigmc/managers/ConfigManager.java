@@ -60,4 +60,22 @@ public class ConfigManager {
             plugin.getLogger().info("[DEBUG] " + message);
         }
     }
+
+    /**
+     * Check if plugin is active in the specified world
+     * @param worldName Name of the world to check
+     * @return true if plugin should be active in this world
+     */
+    public boolean isWorldEnabled(String worldName) {
+        boolean whitelistEnabled = plugin.getConfig().getBoolean("world-whitelist.enabled", false);
+        
+        // If whitelist is disabled, plugin works in ALL worlds
+        if (!whitelistEnabled) {
+            return true;
+        }
+        
+        // Check if world is in whitelist
+        List<String> whitelistedWorlds = plugin.getConfig().getStringList("world-whitelist.worlds");
+        return whitelistedWorlds.contains(worldName);
+    }
 }

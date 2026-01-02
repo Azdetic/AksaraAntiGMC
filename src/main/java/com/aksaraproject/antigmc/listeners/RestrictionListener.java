@@ -24,8 +24,13 @@ public class RestrictionListener implements Listener {
         this.plugin = plugin;
     }
     
-    // Helper to check if player is monitored (in GMC)
+    // Helper to check if player is monitored (in GMC) and in whitelisted world
     private boolean isRestricted(Player player) {
+        // First check if plugin is active in this world
+        if (!plugin.getConfigManager().isWorldEnabled(player.getWorld().getName())) {
+            return false;  // Plugin not active in this world
+        }
+        
         boolean restricted = player.getGameMode() == GameMode.CREATIVE && !player.hasPermission("aksaraantigmc.bypass");
         plugin.getConfigManager().debug("isRestricted check for " + player.getName() + ": " + restricted);
         return restricted;

@@ -1,3 +1,14 @@
+# World Whitelist - Plugin only active in these worlds
+# Leave empty or set enabled: false to enable in ALL worlds
+# If list has worlds, plugin ONLY works in those worlds
+# In other worlds, default /gamemode commands work normally
+world-whitelist:
+  enabled: true
+  worlds:
+    - "world"
+    - "world_nether"
+    - "world_the_end"
+
 # Enable debug mode for detailed logging
 debug: false
 

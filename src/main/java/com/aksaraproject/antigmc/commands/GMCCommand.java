@@ -28,6 +28,14 @@ public class GMCCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         plugin.getConfigManager().debug("[GMCCommand] Executed by " + sender.getName() + " with args: [" + String.join(", ", args) + "]");
 
+        // Check if player is in whitelisted world (skip for console)
+        if (sender instanceof Player player) {
+            if (!plugin.getConfigManager().isWorldEnabled(player.getWorld().getName())) {
+                plugin.getConfigManager().debug("[GMCCommand] World '" + player.getWorld().getName() + "' not in whitelist, passing to vanilla");
+                return false;  // Let vanilla command handle it
+            }
+        }
+
         // Handle "/gmc confirm" command - Any player with pending confirmation can use this
         if (args.length > 0 && args[0].equalsIgnoreCase("confirm")) {
             if (!(sender instanceof Player)) {

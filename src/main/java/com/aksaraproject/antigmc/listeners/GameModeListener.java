@@ -28,6 +28,12 @@ public class GameModeListener implements Listener {
         GameMode newMode = event.getNewGameMode();
         GameMode oldMode = player.getGameMode();
 
+        // Check if plugin is active in this world
+        if (!plugin.getConfigManager().isWorldEnabled(player.getWorld().getName())) {
+            plugin.getConfigManager().debug("GameModeChangeEvent: World '" + player.getWorld().getName() + "' not in whitelist, skipping");
+            return;  // Plugin not active in this world
+        }
+
         plugin.getConfigManager().debug("=== GameModeChangeEvent ===");
         plugin.getConfigManager().debug("Player: " + player.getName());
         plugin.getConfigManager().debug("From: " + oldMode + " To: " + newMode);

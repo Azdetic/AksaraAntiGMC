@@ -40,6 +40,9 @@ public class CreativeItemListener implements Listener {
         if (player.isOp()) return; // OPs can bypass
         if (player.hasPermission("aksaraantigmc.bypass")) return;
         
+        // Check if plugin is active in this world
+        if (!plugin.getConfigManager().isWorldEnabled(player.getWorld().getName())) return;
+        
         plugin.getConfigManager().debug("[CreativeItemListener] === CREATIVE EVENT ===");
         plugin.getConfigManager().debug("[CreativeItemListener] Player: " + player.getName());
         plugin.getConfigManager().debug("[CreativeItemListener] Slot: " + event.getSlot());
@@ -101,6 +104,9 @@ public class CreativeItemListener implements Listener {
         if (player.getGameMode() != GameMode.CREATIVE) return;
         if (player.isOp()) return;
         if (player.hasPermission("aksaraantigmc.bypass")) return;
+        
+        // Check if plugin is active in this world
+        if (!plugin.getConfigManager().isWorldEnabled(player.getWorld().getName())) return;
         
         ItemStack item = event.getCurrentItem();
         if (item != null && !item.getType().isAir()) {
