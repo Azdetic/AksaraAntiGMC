@@ -48,7 +48,8 @@ A Minecraft Paper plugin to prevent Creative Mode (GMC) abuse on your server. Th
 | Command | Description | Permission |
 |---------|-------------|------------|
 | `/aksaraantigmc reload` | Reload config | `aksaraantigmc.admin` |
-| `/aksaraantigmc restoreinventory <player> <gamemode>` | Restore player inventory | `aksaraantigmc.admin` |
+| `/aksaraantigmc restore <player>` | List inventory backups with dates | `aksaraantigmc.admin` |
+| `/aksaraantigmc restore <player> <id>` | Restore specific backup by ID | `aksaraantigmc.admin` |
 
 ---
 

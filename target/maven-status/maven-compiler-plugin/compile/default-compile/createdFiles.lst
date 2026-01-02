@@ -4,6 +4,7 @@ com\aksaraproject\antigmc\commands\GMCCommand.class
 com\aksaraproject\antigmc\database\DatabaseManager.class
 com\aksaraproject\antigmc\listeners\CreativeItemListener.class
 com\aksaraproject\antigmc\managers\ConfigManager.class
+com\aksaraproject\antigmc\database\DatabaseManager$InventoryRecord.class
 com\aksaraproject\antigmc\listeners\PlayerJoinListener.class
 com\aksaraproject\antigmc\managers\ConfirmationManager$PendingConfirmation.class
 com\aksaraproject\antigmc\AksaraAntiGMC.class

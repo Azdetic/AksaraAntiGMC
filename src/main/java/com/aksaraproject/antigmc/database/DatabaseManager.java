@@ -12,6 +12,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -96,6 +99,71 @@ public class DatabaseManager {
             }
         } catch (SQLException | IOException e) {
             plugin.getLogger().log(Level.SEVERE, "Could not load inventory!", e);
+        }
+        return null;
+    }
+
+    /**
+     * Inner class to hold inventory record info
+     */
+    public static class InventoryRecord {
+        public final int id;
+        public final String gamemode;
+        public final long timestamp;
+        public final String formattedDate;
+        
+        public InventoryRecord(int id, String gamemode, long timestamp) {
+            this.id = id;
+            this.gamemode = gamemode;
+            this.timestamp = timestamp;
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            this.formattedDate = sdf.format(new java.util.Date(timestamp));
+        }
+    }
+
+    /**
+     * Get all inventory history for a player (for restore selection)
+     */
+    public List<InventoryRecord> getInventoryHistory(UUID uuid) {
+        plugin.getLogger().info("[DEBUG] getInventoryHistory called for UUID: " + uuid);
+        List<InventoryRecord> records = new ArrayList<>();
+        String query = "SELECT id, gamemode, timestamp FROM inventory_data WHERE uuid = ? ORDER BY timestamp DESC LIMIT 20";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, uuid.toString());
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    records.add(new InventoryRecord(
+                        rs.getInt("id"),
+                        rs.getString("gamemode"),
+                        rs.getLong("timestamp")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().log(Level.SEVERE, "Could not get inventory history!", e);
+        }
+        plugin.getLogger().info("[DEBUG] Found " + records.size() + " inventory records");
+        return records;
+    }
+
+    /**
+     * Load inventory by specific ID (for restore by date selection)
+     */
+    public ItemStack[] loadInventoryById(int id) {
+        plugin.getLogger().info("[DEBUG] loadInventoryById called for ID: " + id);
+        String query = "SELECT data FROM inventory_data WHERE id = ?";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    plugin.getLogger().info("[DEBUG] Found inventory data for ID " + id);
+                    return fromBase64(rs.getString("data"));
+                }
+            }
+        } catch (SQLException | IOException e) {
+            plugin.getLogger().log(Level.SEVERE, "Could not load inventory by ID!", e);
         }
         return null;
     }
